@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Portal Académico | Bienvenida</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+    <style>
+        .page-header {
+            color: white;
+            text-shadow: 0 2px 8px #071b35;
+        }
+
+        .page-header .subtitle {
+            color: #eaf7ff;
+        }
+
+        .main-layout {
+            align-items: flex-start;
+        }
+
+        .form-card,
+        .welcome-card {
+            height: 100%;
+            margin-bottom: 0;
+        }
+
+        .welcome-card {
+            position: sticky;
+            top: 20px;
+        }
+
+        .welcome-placeholder {
+            padding: 25px 12px;
+            text-align: center;
+        }
+
+        .welcome-placeholder .placeholder-icon {
+            display: grid;
+            place-items: center;
+            width: 85px;
+            height: 85px;
+            margin: 0 auto 20px;
+            color: white;
+            background: linear-gradient(135deg, #123b70, #00bdf2);
+            border: 4px solid #f5b51b;
+            border-radius: 24px;
+            font-size: 2.5rem;
+            animation: flotar 3s ease-in-out infinite;
+        }
+
+        .side-feature {
+            padding: 12px;
+            background: #eaf8ff;
+            border-left: 4px solid #00bdf2;
+            border-radius: 10px;
+        }
+
+        .side-feature i {
+            color: #123b70;
+            font-size: 1.25rem;
+        }
+
+        .step-label {
+            color: #123b70;
+            font-size: .8rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .welcome-card .result-icon {
+            margin-inline: auto;
+        }
+
+        .form-card,
+        .welcome-card {
+            animation: aparecer .55s ease both;
+        }
+
+        .form-card {
+            animation-delay: .08s;
+        }
+
+        .welcome-card {
+            animation-delay: .18s;
+        }
+
+        .section-divider {
+            border-color: #b5d9eb;
+            opacity: 1;
+        }
+
+        .age-notice {
+            font-size: .84rem;
+            border-radius: 10px;
+        }
+
+        .footer-text {
+            color: white;
+            text-shadow: 0 1px 5px #071b35;
+        }
+
+        @keyframes flotar {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-7px); }
+        }
+
+        @media (max-width: 991.98px) {
+            .welcome-card {
+                position: static;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<main class="container-fluid container-xl py-4 py-lg-5">
+
+    <!-- ENCABEZADO -->
+    <header class="page-header text-center mb-4">
+        <div class="brand-icon mx-auto mb-3">
+            <i class="bi bi-mortarboard-fill"></i>
+        </div>
+
+        <span class="badge rounded-pill badge-academic mb-3">
+            <i class="bi bi-stars me-1"></i> PORTAL ACADÉMICO
+        </span>
+
+        <h1 class="main-title text-white">
+            ¡Bienvenido a tu nueva etapa!
+        </h1>
+
+        <p class="subtitle mx-auto mb-0">
+            Registra tus datos y prepárate para nuevos aprendizajes.
+        </p>
+    </header>
+
+    <!-- FORMULARIO A LA IZQUIERDA Y BIENVENIDA A LA DERECHA -->
+    <div class="row g-4 main-layout">
+
+        <!-- COLUMNA IZQUIERDA: FORMULARIO -->
+        <div class="col-12 col-lg-7">
+            <section class="form-card">
+
+                <div class="d-flex align-items-center gap-3 mb-4">
+                    <div class="heading-icon">
+                        <i class="bi bi-person-vcard"></i>
+                    </div>
+
+                    <div>
+                        <h2 class="h4 fw-bold mb-1">Registro estudiantil</h2>
+                        <p class="small text-secondary mb-0">
+                            Completa tus datos correctamente.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="progress mb-4" style="height: 6px;"
+                     role="progressbar" aria-label="Formulario de registro">
+                    <div class="progress-bar" id="progressBar"
+                         style="width: 0%; background: #00bdf2;"></div>
+                </div>
+
+                <form id="studentForm" novalidate>
+
+                    <!-- DATOS PERSONALES -->
+                    <div class="section-heading mb-3">
+                        <span class="section-number">01</span>
+                        <h3 class="h6 fw-bold mb-0">Datos personales</h3>
+                    </div>
+
+                    <div class="row g-3 mb-4">
+
+                        <div class="col-12 col-md-6">
+                            <label for="dni" class="form-label">DNI *</label>
+                            <div class="input-group has-validation">
+                                <span class="input-group-text">
+                                    <i class="bi bi-person-vcard"></i>
+                                </span>
+                                <input type="text" id="dni" name="dni"
+                                       class="form-control"
+                                       placeholder="8 dígitos"
+                                       inputmode="numeric"
+                                       autocomplete="off"
+                                       pattern="[0-9]{8}"
+                                       minlength="8" maxlength="8"
+                                       required>
+                                <div class="invalid-feedback">
+                                    El DNI debe tener exactamente 8 dígitos.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <label for="fechaNacimiento" class="form-label">
+                                Fecha de nacimiento *
+                            </label>
+                            <div class="input-group has-validation">
+                                <span class="input-group-text">
+                                    <i class="bi bi-calendar3"></i>
+                                </span>
+                                <input type="date" id="fechaNacimiento"
+                                       name="fechaNacimiento"
+                                       class="form-control"
+                                       autocomplete="bday" required>
+                                <div class="invalid-feedback" id="fechaError">
+                                    Debes tener al menos 17 años.
+                                </div>
+                            </div>
+                            <div id="ageMessage" class="form-text mt-2">
+                                <i class="bi bi-info-circle me-1"></i>
+                                Edad mínima permitida: 17 años.
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <label for="nombres" class="form-label">
+                                Nombres *
+                            </label>
+                            <div class="input-group has-validation">
+                                <span class="input-group-text">
+                                    <i class="bi bi-person"></i>
+                                </span>
+                                <input type="text" id="nombres"
+                                       name="nombres" class="form-control"
+                                       placeholder="Tus nombres"
+                                       maxlength="70"
+                                       autocomplete="given-name"
+                                       pattern="[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+([ '\-][A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+)*"
+                                       required>
+                                <div class="invalid-feedback">
+                                    Ingresa tus nombres correctamente.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <label for="apellidos" class="form-label">
+                                Apellidos *
+                            </label>
+                            <div class="input-group has-validation">
+                                <span class="input-group-text">
+                                    <i class="bi bi-person-badge"></i>
+                                </span>
+                                <input type="text" id="apellidos"
+                                       name="apellidos" class="form-control"
+                                       placeholder="Tus apellidos"
+                                       maxlength="70"
+                                       autocomplete="family-name"
+                                       pattern="[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+([ '\-][A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+)*"
+                                       required>
+                                <div class="invalid-feedback">
+                                    Ingresa tus apellidos correctamente.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="section-divider">
+
+                    <!-- DATOS ACADEMICOS -->
+                    <div class="section-heading mb-3">
+                        <span class="section-number">02</span>
+                        <h3 class="h6 fw-bold mb-0">Información académica</h3>
+                    </div>
+
+                    <div class="row g-3 mb-4">
+
+                        <div class="col-12">
+                            <label for="carrera" class="form-label">
+                                Carrera profesional *
+                            </label>
+                            <div class="input-group has-validation">
+                                <span class="input-group-text">
+                                    <i class="bi bi-mortarboard"></i>
+                                </span>
+                                <select id="carrera" name="carrera"
+                                        class="form-select" required>
+                                    <option value="" selected disabled>
+                                        Selecciona tu carrera
+                                    </option>
+                                    <option>Administración de Empresas</option>
+                                    <option>Enfermería</option>
+                                    <option>Arquitectura de Plataformas y Servicios de TI (APSTI)</option>
+                                    <option>Industrias Alimentarias</option>
+                                    <option>Agropecuaria</option>
+                                    <option>Mecánica Automotriz</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Selecciona tu carrera profesional.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <label for="semestre" class="form-label">
+                                Semestre *
+                            </label>
+                            <div class="input-group has-validation">
+                                <span class="input-group-text">
+                                    <i class="bi bi-journal-bookmark"></i>
+                                </span>
+                                <select id="semestre" name="semestre"
+                                        class="form-select" required>
+                                    <option value="" selected disabled>
+                                        Selecciona
+                                    </option>
+                                    <option>I semestre</option>
+                                    <option>II semestre</option>
+                                    <option>III semestre</option>
+                                    <option>IV semestre</option>
+                                    <option>V semestre</option>
+                                    <option>VI semestre</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Selecciona tu semestre.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <label for="turno" class="form-label">
+                                Turno de estudios *
+                            </label>
+                            <div class="input-group has-validation">
+                                <span class="input-group-text">
+                                    <i class="bi bi-clock"></i>
+                                </span>
+                                <select id="turno" name="turno"
+                                        class="form-select" required>
+                                    <option value="" selected disabled>
+                                        Selecciona
+                                    </option>
+                                    <option>Mañana</option>
+                                    <option>Tarde</option>
+                                    <option>Noche</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Selecciona tu turno.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="hobby" class="form-label">
+                                Pasatiempo favorito *
+                            </label>
+                            <div class="input-group has-validation">
+                                <span class="input-group-text">
+                                    <i class="bi bi-heart"></i>
+                                </span>
+                                <select id="hobby" name="hobby"
+                                        class="form-select" required>
+                                    <option value="" selected disabled>
+                                        Selecciona tu pasatiempo
+                                    </option>
+                                    <option>Leer</option>
+                                    <option>Escuchar música</option>
+                                    <option>Practicar deportes</option>
+                                    <option>Explorar la tecnología</option>
+                                    <option>Dibujar y pintar</option>
+                                    <option>Cocinar</option>
+                                    <option>Viajar</option>
+                                    <option>Jugar videojuegos</option>
+                                    <option>Disfrutar de la naturaleza</option>
+                                    <option>Otro</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Selecciona un pasatiempo.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 d-none" id="otroHobbyContainer">
+                            <label for="otroHobby" class="form-label">
+                                Especifica tu pasatiempo *
+                            </label>
+                            <input type="text" id="otroHobby"
+                                   name="otroHobby" class="form-control"
+                                   placeholder="Escribe tu pasatiempo"
+                                   maxlength="80">
+                            <div class="invalid-feedback">
+                                Escribe tu pasatiempo.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AVISO -->
+                    <div class="alert academic-alert d-flex gap-3 align-items-start">
+                        <i class="bi bi-shield-check fs-4"></i>
+                        <div>
+                            <strong>Antes de continuar</strong>
+                            <p class="small mb-0">
+                                Todos los campos son obligatorios.
+                                El registro requiere una edad mínima de 17 años.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div id="formMessage" class="alert d-none"
+                         role="alert"></div>
+
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-generate btn-lg">
+                            <i class="bi bi-stars me-2"></i>
+                            Generar mi bienvenida
+                            <i class="bi bi-arrow-right ms-2"></i>
+                        </button>
+                    </div>
+
+                    <p class="text-secondary text-center small mt-3 mb-0">
+                        <i class="bi bi-lock-fill me-1"></i>
+                        Revisa tus datos antes de continuar.
+                    </p>
+                </form>
+            </section>
+        </div>
+
+        <!-- COLUMNA DERECHA: BIENVENIDA -->
+        <div class="col-12 col-lg-5">
+            <section id="welcomeResult" class="welcome-card"
+                     aria-live="polite">
+
+                <!-- CONTENIDO INICIAL -->
+                <div id="welcomePlaceholder" class="welcome-placeholder">
+                    <div class="placeholder-icon">
+                        <i class="bi bi-mortarboard-fill"></i>
+                    </div>
+
+                    <span class="badge rounded-pill badge-academic mb-3">
+                        TU FUTURO COMIENZA AQUÍ
+                    </span>
+
+                    <h2 class="h3 fw-bold mb-3" style="color:#123b70;">
+                        ¡Tu bienvenida te espera!
+                    </h2>
+
+                    <p class="text-secondary">
+                        Completa el formulario para generar un mensaje
+                        personalizado con tus datos.
+                    </p>
+
+                    <hr class="section-divider my-4">
+
+                    <div class="d-grid gap-3 text-start">
+                        <div class="side-feature d-flex align-items-center gap-3">
+                            <i class="bi bi-person-check-fill"></i>
+                            <div>
+                                <strong>Tu información</strong>
+                                <div class="small text-secondary">
+                                    Datos personales y académicos.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="side-feature d-flex align-items-center gap-3">
+                            <i class="bi bi-calendar-check-fill"></i>
+                            <div>
+                                <strong>Una nueva etapa</strong>
+                                <div class="small text-secondary">
+                                    Prepárate para alcanzar tus metas.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="side-feature d-flex align-items-center gap-3">
+                            <i class="bi bi-trophy-fill"></i>
+                            <div>
+                                <strong>Muchos logros por delante</strong>
+                                <div class="small text-secondary">
+                                    Cada aprendizaje cuenta.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="alert mt-4 mb-0"
+                         style="background:#fff1c2;border:1px solid #f5b51b;">
+                        <i class="bi bi-lightbulb-fill me-2"></i>
+                        <strong>Consejo:</strong>
+                        <span class="small">
+                            La constancia es tan importante como el talento.
+                        </span>
+                    </div>
+                </div>
+
+                <!-- RESULTADO PERSONALIZADO -->
+                <div id="welcomeContent" class="d-none">
+                    <div class="text-center">
+                        <div class="result-icon mb-3">
+                            <i class="bi bi-mortarboard-fill"></i>
+                        </div>
+
+                        <span class="badge rounded-pill badge-academic mb-3">
+                            <i class="bi bi-stars me-1"></i>
+                            TU BIENVENIDA
+                        </span>
+
+                        <h2 id="welcomeName" class="h3 fw-bold"></h2>
+                        <p id="welcomeMessage" class="text-secondary"></p>
+                    </div>
+
+                    <hr class="section-divider">
+
+                    <h3 class="h6 fw-bold mb-3">
+                        <i class="bi bi-card-checklist me-2"></i>
+                        Resumen de tus datos
+                    </h3>
+
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <div class="detail-box">
+                                <span><i class="bi bi-person-vcard me-2"></i>DNI</span>
+                                <strong id="resultDni"></strong>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="detail-box">
+                                <span><i class="bi bi-calendar3 me-2"></i>Edad</span>
+                                <strong id="resultAge"></strong>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="detail-box">
+                                <span><i class="bi bi-mortarboard me-2"></i>Carrera</span>
+                                <strong id="resultCareer"></strong>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="detail-box">
+                                <span><i class="bi bi-journal-bookmark me-2"></i>Semestre</span>
+                                <strong id="resultSemester"></strong>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="detail-box">
+                                <span><i class="bi bi-clock me-2"></i>Turno</span>
+                                <strong id="resultTurn"></strong>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="detail-box">
+                                <span><i class="bi bi-heart me-2"></i>Pasatiempo</span>
+                                <strong id="resultHobby"></strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hobby-panel d-flex gap-3 mt-4">
+                        <i class="bi bi-lightbulb-fill fs-4"></i>
+                        <div>
+                            <strong>Un mensaje para ti</strong>
+                            <p id="hobbyMessage" class="mb-0 mt-1"></p>
+                        </div>
+                    </div>
+
+                    <div class="success-banner d-flex align-items-center gap-3 mt-3">
+                        <i class="bi bi-award-fill fs-2"></i>
+                        <div>
+                            <strong>¡Muchos éxitos!</strong>
+                            <p class="small mb-0">
+                                Confía en tus capacidades y sigue aprendiendo.
+                            </p>
+                        </div>
+                    </div>
+
+                    <button type="button" id="editButton"
+                            class="btn btn-outline-primary w-100 mt-4">
+                        <i class="bi bi-pencil-square me-2"></i>
+                        Editar mis datos
+                    </button>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <footer class="footer-text text-center small mt-4">
+        <i class="bi bi-mortarboard me-1"></i>
+        Portal Académico · Bienvenida estudiantil
+    </footer>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+"use strict";
+
+const form = document.getElementById("studentForm");
+const fecha = document.getElementById("fechaNacimiento");
+const dni = document.getElementById("dni");
+const hobby = document.getElementById("hobby");
+const otroHobby = document.getElementById("otroHobby");
+const otroContainer = document.getElementById("otroHobbyContainer");
+const progressBar = document.getElementById("progressBar");
+const ageMessage = document.getElementById("ageMessage");
+const formMessage = document.getElementById("formMessage");
+
+const welcomePlaceholder = document.getElementById("welcomePlaceholder");
+const welcomeContent = document.getElementById("welcomeContent");
+
+const campo = id => document.getElementById(id);
+
+function fechaLocal(date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+}
+
+function limiteEdad() {
+    const hoy = new Date();
+    const limite = new Date(
+        hoy.getFullYear() - 17,
+        hoy.getMonth(),
+        hoy.getDate()
+    );
+    return fechaLocal(limite);
+}
+
+function calcularEdad(valor) {
+    const nacimiento = new Date(valor + "T00:00:00");
+    const hoy = new Date();
+
+    let edad = hoy.getFullYear() - nacimiento.getFullYear();
+
+    if (
+        hoy.getMonth() < nacimiento.getMonth() ||
+        (
+            hoy.getMonth() === nacimiento.getMonth() &&
+            hoy.getDate() < nacimiento.getDate()
+        )
+    ) {
+        edad--;
+    }
+
+    return edad;
+}
+
+fecha.max = limiteEdad();
+
+/* VALIDACION DE FECHA Y EDAD */
+fecha.addEventListener("change", () => {
+    fecha.setCustomValidity("");
+
+    if (!fecha.value) {
+        ageMessage.textContent =
+            "Edad mínima permitida: 17 años.";
+        ageMessage.style.color = "";
+        return;
+    }
+
+    const edad = calcularEdad(fecha.value);
+
+    if (edad < 17 || fecha.value > fechaLocal(new Date())) {
+        fecha.setCustomValidity(
+            "Debes tener al menos 17 años y una fecha válida."
+        );
+        ageMessage.textContent =
+            "No puedes registrarte si tienes menos de 17 años.";
+        ageMessage.style.color = "#b42318";
+    } else {
+        ageMessage.textContent = `Edad verificada: ${edad} años.`;
+        ageMessage.style.color = "#087443";
+    }
+
+    if (form.classList.contains("was-validated")) {
+        fecha.classList.toggle("is-invalid", !fecha.checkValidity());
+    }
+});
+
+/* DNI: SOLO OCHO DIGITOS */
+dni.addEventListener("input", () => {
+    dni.value = dni.value.replace(/\D/g, "").slice(0, 8);
+});
+
+/* CAMPO PARA OTRO PASATIEMPO */
+hobby.addEventListener("change", () => {
+    const mostrar = hobby.value === "Otro";
+
+    otroContainer.classList.toggle("d-none", !mostrar);
+    otroHobby.required = mostrar;
+
+    if (!mostrar) {
+        otroHobby.value = "";
+        otroHobby.setCustomValidity("");
+    }
+});
+
+/* BARRA DE PROGRESO */
+form.addEventListener("input", actualizarProgreso);
+form.addEventListener("change", actualizarProgreso);
+
+function actualizarProgreso() {
+    const campos = [...form.querySelectorAll(
+        "input[required], select[required]"
+    )].filter(el => !el.disabled && el.offsetParent !== null);
+
+    const completos = campos.filter(el => {
+        if (el.type === "date") {
+            return el.value !== "" && el.checkValidity();
+        }
+        return el.value.trim() !== "" && el.checkValidity();
+    }).length;
+
+    const porcentaje = campos.length
+        ? Math.round(completos / campos.length * 100)
+        : 0;
+
+    progressBar.style.width = porcentaje + "%";
+    progressBar.setAttribute("aria-valuenow", porcentaje);
+}
+
+/* MENSAJE SEGUN EL PASATIEMPO */
+function mensajePasatiempo(valor) {
+    const mensajes = {
+        "Leer": "La lectura te ayuda a descubrir ideas y ampliar tus conocimientos.",
+        "Escuchar música": "Que la música te acompañe y te motive a seguir aprendiendo.",
+        "Practicar deportes": "La disciplina y el trabajo en equipo también te ayudan a crecer.",
+        "Explorar la tecnología": "Tu curiosidad puede convertirse en nuevas ideas y soluciones.",
+        "Dibujar y pintar": "Sigue desarrollando tu creatividad.",
+        "Cocinar": "La creatividad y la paciencia también te acompañan en tus estudios.",
+        "Viajar": "Cada experiencia te permite aprender algo nuevo.",
+        "Jugar videojuegos": "La estrategia y la creatividad te ayudan a resolver desafíos.",
+        "Disfrutar de la naturaleza": "Sigue aprendiendo de todo lo que te rodea."
+    };
+
+    return mensajes[valor] ||
+        `Sigue disfrutando de ${valor} y dedicando tiempo a lo que te inspira.`;
+}
+
+/* GENERAR BIENVENIDA */
+form.addEventListener("submit", event => {
+    event.preventDefault();
+
+    form.classList.add("was-validated");
+    formMessage.classList.add("d-none");
+
+    fecha.setCustomValidity("");
+
+    if (fecha.value && calcularEdad(fecha.value) < 17) {
+        fecha.setCustomValidity(
+            "Debes tener al menos 17 años para registrarte."
+        );
+    }
+
+    if (!form.checkValidity()) {
+        form.reportValidity();
+
+        formMessage.textContent =
+            "Revisa los campos marcados antes de continuar.";
+        formMessage.className = "alert alert-danger";
+        return;
+    }
+
+    const nombres = campo("nombres").value.trim();
+    const apellidos = campo("apellidos").value.trim();
+    const edad = calcularEdad(fecha.value);
+    const carrera = campo("carrera").value;
+    const semestre = campo("semestre").value;
+    const turno = campo("turno").value;
+
+    const pasatiempo = hobby.value === "Otro"
+        ? otroHobby.value.trim()
+        : hobby.value;
+
+    if (edad < 17 || !pasatiempo) {
+        return;
+    }
+
+    campo("welcomeName").textContent =
+        `¡Bienvenido/a, ${nombres} ${apellidos}!`;
+
+    campo("welcomeMessage").textContent =
+        `Tienes ${edad} años y comienzas una nueva etapa en ${carrera}. Te deseamos muchos éxitos en tus estudios.`;
+
+    campo("resultDni").textContent = dni.value;
+    campo("resultAge").textContent = `${edad} años`;
+    campo("resultCareer").textContent = carrera;
+    campo("resultSemester").textContent = semestre;
+    campo("resultTurn").textContent = turno;
+    campo("resultHobby").textContent = pasatiempo;
+    campo("hobbyMessage").textContent = mensajePasatiempo(pasatiempo);
+
+    welcomePlaceholder.classList.add("d-none");
+    welcomeContent.classList.remove("d-none");
+
+    const panel = document.getElementById("welcomeResult");
+    panel.classList.remove("animate-in");
+    void panel.offsetWidth;
+    panel.classList.add("animate-in");
+
+    actualizarProgreso();
+});
+
+/* EDITAR LOS DATOS */
+campo("editButton").addEventListener("click", () => {
+    welcomeContent.classList.add("d-none");
+    welcomePlaceholder.classList.remove("d-none");
+
+    form.classList.remove("was-validated");
+    formMessage.classList.add("d-none");
+
+    form.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+
+    campo("nombres").focus();
+});
+
+actualizarProgreso();
+</script>
+</body>
+</html>
